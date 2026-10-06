@@ -1,0 +1,181 @@
+/* style.css */
+:root {
+    --primary-color: #0056b3;
+    --success-color: #28a745;
+    --danger-color: #dc3545;
+    --bg-color: #f4f7f6;
+    --card-bg: #ffffff;
+    --text-color: #333333;
+    --border-color: #dddddd;
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+body {
+    background-color: var(--bg-color);
+    color: var(--text-color);
+    line-height: 1.6;
+    padding: 20px;
+}
+
+.container {
+    max-width: 1100px;
+    margin: 0 auto;
+}
+
+header {
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+header h1 {
+    color: var(--primary-color);
+}
+
+.main-content {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+}
+
+.form-section, .cart-section {
+    background: var(--card-bg);
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+}
+
+.form-section {
+    flex: 1 1 300px; /* Fleksibel, minimal 300px */
+}
+
+.cart-section {
+    flex: 2 1 600px; /* Lebih lebar dari form */
+}
+
+h2 {
+    margin-bottom: 15px;
+    border-bottom: 2px solid var(--primary-color);
+    padding-bottom: 5px;
+    display: inline-block;
+}
+
+.form-group {
+    margin-bottom: 15px;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
+}
+
+.form-group input {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid var(--border-color);
+    border-radius: 4px;
+    font-size: 16px;
+}
+
+/* Pesan error form berwarna merah */
+.error-msg {
+    color: var(--danger-color);
+    font-size: 13px;
+    display: block;
+    margin-top: 5px;
+    min-height: 18px; /* Menjaga spasi walau kosong */
+}
+
+.btn {
+    padding: 10px 15px;
+    border: none;
+    border-radius: 4px;
+    color: white;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background 0.3s;
+    width: 100%;
+}
+
+.btn-primary { background-color: var(--primary-color); }
+.btn-primary:hover { background-color: #004494; }
+
+.btn-success { background-color: var(--success-color); }
+.btn-success:hover { background-color: #218838; }
+
+.btn-danger { background-color: var(--danger-color); }
+.btn-danger:hover { background-color: #c82333; }
+
+.btn-delete {
+    background-color: var(--danger-color);
+    padding: 5px 10px;
+    font-size: 14px;
+    width: auto;
+}
+
+.table-responsive {
+    overflow-x: auto;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 20px;
+}
+
+table th, table td {
+    padding: 12px;
+    text-align: left;
+    border-bottom: 1px solid var(--border-color);
+}
+
+table th {
+    background-color: #f8f9fa;
+    font-weight: bold;
+}
+
+.checkout-panel {
+    background-color: #f8f9fa;
+    padding: 20px;
+    border-radius: 8px;
+    margin-top: 20px;
+}
+
+.summary p {
+    font-size: 16px;
+    margin-bottom: 5px;
+}
+
+.summary h3 {
+    margin-top: 10px;
+    color: var(--primary-color);
+    font-size: 24px;
+}
+
+.payment-module {
+    margin-top: 20px;
+    padding-top: 20px;
+    border-top: 1px solid var(--border-color);
+}
+
+.payment-result {
+    margin-top: 15px;
+    padding: 15px;
+    border-radius: 4px;
+    font-weight: bold;
+    text-align: center;
+}
+
+.payment-result.success { background-color: #d4edda; color: #155724; border: 1px solid #c3e6cb; }
+.payment-result.error { background-color: #f8d7da; color: #721c24; border: 1px solid #f5c6cb; }
+.hidden { display: none; }
+
+.btn-reset {
+    margin-top: 20px;
+}

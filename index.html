@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mini POS - Kasir Kampus</title>
+    <!-- Menghubungkan ke file CSS yang akan kita buat di tahap selanjutnya -->
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Mini POS Kampus</h1>
+            <p>Sistem Kasir & Keranjang Belanja Sederhana</p>
+        </header>
+
+        <div class="main-content">
+            <!-- Bagian Form Input Barang -->
+            <section class="form-section">
+                <h2>Tambah Barang</h2>
+                <form id="formBarang">
+                    <div class="form-group">
+                        <label for="namaBarang">Nama Barang</label>
+                        <input type="text" id="namaBarang" placeholder="Contoh: Buku Tulis">
+                        <small class="error-msg" id="errorNama"></small>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="hargaSatuan">Harga Satuan (Rp)</label>
+                        <input type="number" id="hargaSatuan" placeholder="Contoh: 5000">
+                        <small class="error-msg" id="errorHarga"></small>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="qty">Jumlah (Qty)</label>
+                        <input type="number" id="qty" placeholder="Contoh: 2">
+                        <small class="error-msg" id="errorQty"></small>
+                    </div>
+
+                    <button type="submit" class="btn btn-primary" id="btnTambah">Tambah ke Keranjang</button>
+                </form>
+            </section>
+
+            <!-- Bagian Keranjang Belanja -->
+            <section class="cart-section">
+                <h2>Keranjang Belanja</h2>
+                <div class="table-responsive">
+                    <table id="tabelKeranjang">
+                        <thead>
+                            <tr>
+                                <th>No</th>
+                                <th>Nama Barang</th>
+                                <th>Harga Satuan</th>
+                                <th>Qty</th>
+                                <th>Subtotal</th>
+                                <th>Aksi</th>
+                            </tr>
+                        </thead>
+                        <tbody id="cartBody">
+                            <!-- Data barang akan masuk ke sini via JS -->
+                        </tbody>
+                    </table>
+                </div>
+
+                <!-- Modul Kalkulator & Pembayaran -->
+                <div class="checkout-panel">
+                    <div class="summary">
+                        <p>Total Belanja: <strong id="totalBelanja">Rp 0</strong></p>
+                        <p class="discount-text">Diskon 10% (Min. Rp 50.000): <strong id="nominalDiskon">Rp 0</strong></p>
+                        <h3>Total Akhir: <span id="totalAkhir">Rp 0</span></h3>
+                    </div>
+
+                    <div class="payment-module">
+                        <div class="form-group">
+                            <label for="uangBayar">Uang Bayar (Rp)</label>
+                            <input type="number" id="uangBayar" placeholder="Masukkan nominal uang">
+                        </div>
+                        <button type="button" class="btn btn-success" id="btnBayar">Bayar / Hitung</button>
+                        
+                        <div id="hasilPembayaran" class="payment-result hidden">
+                            <!-- Kembalian atau peringatan akan tampil di sini -->
+                        </div>
+                    </div>
+
+                    <button type="button" class="btn btn-danger btn-reset" id="btnReset">Transaksi Baru / Reset</button>
+                </div>
+            </section>
+        </div>
+    </div>
+
+    <!-- Menghubungkan ke file JS yang akan kita buat di tahap ketiga -->
+    <script src="script.js"></script>
+</body>
+</html>
