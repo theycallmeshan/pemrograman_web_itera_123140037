@@ -1,0 +1,38 @@
+<!-- Struktur HTML Sederhana -->
+<div>
+    <h3>Kalkulator BMI</h3>
+    <input type="number" id="berat" placeholder="Berat (kg)">
+    <input type="number" id="tinggi" placeholder="Tinggi (cm)">
+    <button id="btnHitungBmi">Hitung BMI</button>
+    <p id="hasilBmi"></p>
+</div>
+
+<!-- Logika JavaScript -->
+<script>
+    // 1. Fungsi khusus untuk kalkulasi matematis
+    function hitungBMI(berat, tinggiCm) {
+        let tinggiMeter = tinggiCm / 100;
+        let bmi = berat / (tinggiMeter * tinggiMeter);
+        return bmi.toFixed(2); // Dibulatkan 2 angka desimal
+    }
+
+    // 2. Event Handler yang dipicu saat tombol diklik
+    document.getElementById("btnHitungBmi").addEventListener("click", function() {
+        let berat = parseFloat(document.getElementById("berat").value);
+        let tinggi = parseFloat(document.getElementById("tinggi").value);
+        
+        if (berat > 0 && tinggi > 0) {
+            let nilaiBmi = hitungBMI(berat, tinggi);
+            let kategori = "";
+
+            if (nilaiBmi < 18.5) kategori = "Kurus";
+            else if (nilaiBmi < 24.9) kategori = "Normal";
+            else if (nilaiBmi < 29.9) kategori = "Kelebihan Berat Badan";
+            else kategori = "Obesitas";
+
+            document.getElementById("hasilBmi").innerText = `BMI Anda: ${nilaiBmi} - Kategori: ${kategori}`;
+        } else {
+            document.getElementById("hasilBmi").innerText = "Silakan masukkan angka yang valid!";
+        }
+    });
+</script>

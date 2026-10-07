@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Manajemen Data Mahasiswa (Latihan 1-5)</title>
+    <style>
+        body { font-family: Arial, sans-serif; padding: 20px; background: #f4f7f6; color: #333; }
+        .container { max-width: 900px; margin: auto; background: #fff; padding: 20px; border-radius: 8px; box-shadow: 0 2px 10px rgba(0,0,0,0.1); }
+        h2, h3 { color: #0056b3; }
+        .form-group { margin-bottom: 10px; }
+        .form-group input { padding: 8px; width: calc(100% - 20px); margin-top: 5px; border: 1px solid #ccc; border-radius: 4px; }
+        .btn { padding: 8px 12px; border: none; border-radius: 4px; color: white; cursor: pointer; margin-right: 5px; margin-bottom: 5px; }
+        .btn-primary { background: #0056b3; }
+        .btn-success { background: #28a745; }
+        .btn-warning { background: #ffc107; color: #000; }
+        .btn-danger { background: #dc3545; }
+        .btn-info { background: #17a2b8; }
+        .controls { background: #e9ecef; padding: 15px; border-radius: 5px; margin-bottom: 15px; display: flex; flex-wrap: wrap; gap: 10px; }
+        .info-panel { padding: 10px; background: #d4edda; color: #155724; border: 1px solid #c3e6cb; border-radius: 4px; margin-bottom: 15px; display: none; }
+        table { width: 100%; border-collapse: collapse; margin-top: 10px; }
+        th, td { border: 1px solid #ddd; padding: 10px; text-align: left; }
+        th { background: #0056b3; color: white; }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h2>Sistem Manajemen Mahasiswa</h2>
+    
+    <!-- Form CRUD (Latihan 5) -->
+    <div style="display: flex; gap: 20px;">
+        <div style="flex: 1;">
+            <h3>Form Input Data</h3>
+            <div class="form-group"><input type="text" id="nama" placeholder="Nama Mahasiswa"></div>
+            <div class="form-group"><input type="text" id="nim" placeholder="NIM (Harus Unik)"></div>
+            <div class="form-group"><input type="text" id="jurusan" placeholder="Jurusan"></div>
+            <div class="form-group"><input type="number" id="nilai" placeholder="Nilai (0-100)"></div>
+            <button class="btn btn-primary" id="btnSimpan" onclick="simpanData()">Simpan Data</button>
+            <button class="btn btn-warning" id="btnBatal" onclick="batalEdit()" style="display: none;">Batal</button>
+        </div>
+
+        <div style="flex: 2;">
+            <!-- Fitur Manipulasi Array (Latihan 2, 3, 4) -->
+            <h3>Aksi & Analisis</h3>
+            <div class="controls">
+                <button class="btn btn-info" onclick="cariTertinggi()">Cari Nilai Tertinggi</button>
+                <button class="btn btn-info" onclick="filterAtasRata()">Di Atas Rata-rata</button>
+                <button class="btn btn-success" onclick="urutkanData('asc')">Urutkan A-Z</button>
+                <button class="btn btn-success" onclick="urutkanData('desc')">Urutkan Z-A</button>
+                <button class="btn btn-danger" onclick="resetTampilan()">Reset Tampilan</button>
+            </div>
+            
+            <div id="infoPanel" class="info-panel"></div>
+        </div>
+    </div>
+
+    <!-- Tabel Data (Latihan 1) -->
+    <h3 style="margin-top: 30px;">Daftar Mahasiswa</h3>
+    <table>
+        <thead>
+            <tr>
+                <th>Nama</th>
+                <th>NIM</th>
+                <th>Jurusan</th>
+                <th>Nilai</th>
+                <th>Aksi</th>
+            </tr>
+        </thead>
+        <tbody id="tabelBody"></tbody>
+    </table>
+</div>
+
+<script>
+    // Latihan 1: Inisialisasi Array Mahasiswa
+    let dbMahasiswa = [
+        { nama: "M. Reyshandi", nim: "123140037", jurusan: "Teknik Informatika", nilai: 88 },
+        { nama: "Arta Eka", nim: "123140010", jurusan: "Teknik Informatika", nilai: 92 },
+        { nama: "Budi Santoso", nim: "123140015", jurusan: "Sistem Informasi", nilai: 75 },
+        { nama: "Citra Kirana", nim: "123140022", jurusan: "Teknik Komputer", nilai: 85 },
+        { nama: "Dewi Lestari", nim: "123140030", jurusan: "Sains Data", nilai: 78 }
+    ];
+
+    let nimEdit = null;
+
+    // Latihan 1 & 5: Render Tabel (Read)
+    function renderTabel(dataArray = dbMahasiswa) {
+        const tbody = document.getElementById("tabelBody");
+        tbody.innerHTML = "";
+        dataArray.forEach(mhs => {
+            tbody.innerHTML += `
+                <tr>
+                    <td>${mhs.nama}</td>
+                    <td>${mhs.nim}</td>
+                    <td>${mhs.jurusan}</td>
+                    <td>${mhs.nilai}</td>
+                    <td>
+                        <button class="btn btn-warning" onclick="siapkanEdit('${mhs.nim}')">Edit</button>
+                        <button class="btn btn-danger" onclick="hapusData('${mhs.nim}')">Hapus</button>
+                    </td>
+                </tr>
+            `;
+        });
+    }
+
+    // Latihan 5: Create & Update Data
+    function simpanData() {
+        const nama = document.getElementById("nama").value.trim();
+        const nim = document.getElementById("nim").value.trim();
+        const jurusan = document.getElementById("jurusan").value.trim();
+        const nilai = parseFloat(document.getElementById("nilai").value);
+
+        if (!nama || !nim || !jurusan || isNaN(nilai)) return alert("Isi semua kolom dengan benar!");
+
+        if (nimEdit) {
+            // Update
+            const index = dbMahasiswa.findIndex(m => m.nim === nimEdit);
+            dbMahasiswa[index] = { nama, nim, jurusan, nilai };
+            batalEdit();
+        } else {
+            // Create
+            if (dbMahasiswa.some(m => m.nim === nim)) return alert("NIM sudah terdaftar!");
+            dbMahasiswa.push({ nama, nim, jurusan, nilai });
+        }
+
+        batalEdit();
+        resetTampilan();
+    }
+
+    // Latihan 5: Hapus Data (Delete)
+    function hapusData(nim) {
+        if (confirm("Hapus mahasiswa dengan NIM " + nim + "?")) {
+            dbMahasiswa = dbMahasiswa.filter(m => m.nim !== nim);
+            resetTampilan();
+        }
+    }
+
+    // Persiapan Edit Data
+    function siapkanEdit(nim) {
+        const mhs = dbMahasiswa.find(m => m.nim === nim);
+        document.getElementById("nama").value = mhs.nama;
+        document.getElementById("nim").value = mhs.nim;
+        document.getElementById("jurusan").value = mhs.jurusan;
+        document.getElementById("nilai").value = mhs.nilai;
+
+        nimEdit = nim;
+        document.getElementById("btnSimpan").innerText = "Update Data";
+        document.getElementById("btnBatal").style.display = "inline-block";
+    }
+
+    function batalEdit() {
+        nimEdit = null;
+        document.getElementById("nama").value = "";
+        document.getElementById("nim").value = "";
+        document.getElementById("jurusan").value = "";
+        document.getElementById("nilai").value = "";
+        document.getElementById("btnSimpan").innerText = "Simpan Data";
+        document.getElementById("btnBatal").style.display = "none";
+    }
+
+    // Fungsi Bantuan: Menampilkan Pesan Panel
+    function tampilkanInfo(pesan) {
+        const panel = document.getElementById("infoPanel");
+        panel.innerHTML = pesan;
+        panel.style.display = "block";
+    }
+
+    // Latihan 2: Cari Nilai Tertinggi (Reduce)
+    function cariTertinggi() {
+        if (dbMahasiswa.length === 0) return alert("Data kosong!");
+        const tertinggi = dbMahasiswa.reduce((max, mhs) => mhs.nilai > max.nilai ? mhs : max, dbMahasiswa[0]);
+        tampilkanInfo(`🏆 <strong>Nilai Tertinggi:</strong> Diraih oleh ${tertinggi.nama} dengan nilai ${tertinggi.nilai}`);
+        renderTabel([tertinggi]); // Filter tabel hanya menampilkan dia
+    }
+
+    // Latihan 3: Filter di Atas Rata-rata (Filter & Reduce)
+    function filterAtasRata() {
+        if (dbMahasiswa.length === 0) return alert("Data kosong!");
+        const rataRata = dbMahasiswa.reduce((sum, mhs) => sum + mhs.nilai, 0) / dbMahasiswa.length;
+        const hasilFilter = dbMahasiswa.filter(mhs => mhs.nilai > rataRata);
+        
+        tampilkanInfo(`📊 <strong>Rata-rata Kelas:</strong> ${rataRata.toFixed(2)} | Menampilkan mahasiswa di atas rata-rata.`);
+        renderTabel(hasilFilter);
+    }
+
+    // Latihan 4: Mengurutkan Data (Sort)
+    function urutkanData(tipe) {
+        const dataSorted = [...dbMahasiswa].sort((a, b) => {
+            return tipe === 'asc' ? a.nama.localeCompare(b.nama) : b.nama.localeCompare(a.nama);
+        });
+        tampilkanInfo(`🔤 <strong>Sorting:</strong> Data diurutkan berdasarkan nama (${tipe.toUpperCase()})`);
+        renderTabel(dataSorted);
+    }
+
+    // Reset Tampilan ke Kondisi Awal
+    function resetTampilan() {
+        document.getElementById("infoPanel").style.display = "none";
+        renderTabel();
+    }
+
+    // Render tabel saat pertama kali halaman dimuat
+    window.onload = renderTabel;
+
+</script>
+</body>
+</html>
