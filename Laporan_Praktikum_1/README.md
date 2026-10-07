@@ -26,7 +26,7 @@ Aplikasi Kasir dan Keranjang Belanja Sederhana (Mini POS) adalah sistem berbasis
 *(Catatan: Letakkan file gambar di folder yang sama dan ganti nama file di bawah ini sesuai gambar screenshot Anda)*
 
 1. **Tampilan Form Input Utama:**
-   ![Tampilan Utama](screenshot_utama.png)
+   ![Tampilan Utama](tampilan_halaman_utama.png)
 2. **Tampilan Saat Validasi Error Muncul:**
    ![Validasi Error](screenshot_error.png)
 3. **Tampilan Hasil Perhitungan dan Tabel Data:**
