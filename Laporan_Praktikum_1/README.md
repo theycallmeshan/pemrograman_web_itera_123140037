@@ -28,9 +28,11 @@ Aplikasi Kasir dan Keranjang Belanja Sederhana (Mini POS) adalah sistem berbasis
 1. **Tampilan Form Input Utama:**
    ![Tampilan Utama](tampilan_halaman_utama.png)
 2. **Tampilan Saat Validasi Error Muncul:**
-   ![Validasi Error](screenshot_error.png)
+   ![Validasi Error](tampilan_pesan_error.png)
 3. **Tampilan Hasil Perhitungan dan Tabel Data:**
-   ![Hasil Perhitungan](screenshot_tabel_kembalian.png)
+   ![Hasil Perhitungan](tampilan_pembayaran.png)
+   ![Hasil Perhitungan](tampilan_pembayaran_2.png)
+   ![Hasil Perhitungan](tampilan_pembayaran_3.png)
 
 ## Penjelasan Teknis Singkat
 - **Penanganan Validasi Input:** Validasi dikelola dalam fungsi `tambahBarang()`. Nilai (*value*) diambil dari elemen input HTML. Jika data tidak sesuai (misalnya string length < 3), *flag* `isValid` diubah menjadi `false` dan fungsi DOM `.innerText` akan mnampilkan pesan error ke dalam tag `` di bawah form. Jika gagal, proses push data ke *array* dihentikan.
