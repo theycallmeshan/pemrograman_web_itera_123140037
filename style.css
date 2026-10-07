@@ -51,11 +51,11 @@ header h1 {
 }
 
 .form-section {
-    flex: 1 1 300px; /* Fleksibel, minimal 300px */
+    flex: 1 1 300px; 
 }
 
 .cart-section {
-    flex: 2 1 600px; /* Lebih lebar dari form */
+    flex: 2 1 600px;
 }
 
 h2 {
@@ -83,13 +83,13 @@ h2 {
     font-size: 16px;
 }
 
-/* Pesan error form berwarna merah */
+/* Pesan error */
 .error-msg {
     color: var(--danger-color);
     font-size: 13px;
     display: block;
     margin-top: 5px;
-    min-height: 18px; /* Menjaga spasi walau kosong */
+    min-height: 18px; 
 }
 
 .btn {

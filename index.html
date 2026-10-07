@@ -4,18 +4,17 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Mini POS - Kasir Kampus</title>
-    <!-- Menghubungkan ke file CSS yang akan kita buat di tahap selanjutnya -->
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
     <div class="container">
         <header>
             <h1>Mini POS Kampus</h1>
-            <p>Sistem Kasir & Keranjang Belanja Sederhana</p>
+            <p>Sistem Kasir Sederhana</p>
         </header>
 
         <div class="main-content">
-            <!-- Bagian Form Input Barang -->
+            
             <section class="form-section">
                 <h2>Tambah Barang</h2>
                 <form id="formBarang">
@@ -41,7 +40,7 @@
                 </form>
             </section>
 
-            <!-- Bagian Keranjang Belanja -->
+            
             <section class="cart-section">
                 <h2>Keranjang Belanja</h2>
                 <div class="table-responsive">
@@ -57,12 +56,12 @@
                             </tr>
                         </thead>
                         <tbody id="cartBody">
-                            <!-- Data barang akan masuk ke sini via JS -->
+                            
                         </tbody>
                     </table>
                 </div>
 
-                <!-- Modul Kalkulator & Pembayaran -->
+                
                 <div class="checkout-panel">
                     <div class="summary">
                         <p>Total Belanja: <strong id="totalBelanja">Rp 0</strong></p>
@@ -78,7 +77,7 @@
                         <button type="button" class="btn btn-success" id="btnBayar">Bayar / Hitung</button>
                         
                         <div id="hasilPembayaran" class="payment-result hidden">
-                            <!-- Kembalian atau peringatan akan tampil di sini -->
+                            
                         </div>
                     </div>
 
@@ -88,7 +87,6 @@
         </div>
     </div>
 
-    <!-- Menghubungkan ke file JS yang akan kita buat di tahap ketiga -->
     <script src="script.js"></script>
 </body>
 </html>

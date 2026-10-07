@@ -1,9 +1,7 @@
-
-// script.js
 const STORAGE_KEY = 'MINI_POS_CART';
 let cart = [];
 
-// Format angka ke format Rupiah (Contoh: Rp 50.000)
+// Fungsi untuk format mata uang Rupiah
 function formatRupiah(number) {
     return new Intl.NumberFormat('id-ID', {
         style: 'currency',
@@ -12,12 +10,12 @@ function formatRupiah(number) {
     }).format(number);
 }
 
-// Inisialisasi saat halaman dimuat
+// Event Listener untuk DOMContentLoaded
 document.addEventListener('DOMContentLoaded', () => {
     loadCartFromStorage();
     renderCart();
 
-    // Event Listener untuk Form Tambah Barang
+    // Event Listener untuk Form Input Barang
     document.getElementById('formBarang').addEventListener('submit', function(e) {
         e.preventDefault();
         tambahBarang();
@@ -132,7 +130,7 @@ function hapusBarang(index) {
     renderCart();
 }
 
-// --- MODUL KALKULATOR DISKON & TOTAL AKHIR ---
+
 let grandTotal = 0; // Variabel global untuk menyimpan total akhir yang harus dibayar
 
 function kalkulasiTotal(total) {
@@ -150,7 +148,7 @@ function kalkulasiTotal(total) {
     document.getElementById('totalAkhir').innerText = formatRupiah(grandTotal);
 }
 
-// --- MODUL PEMBAYARAN & KEMBALIAN ---
+
 function prosesPembayaran() {
     if (cart.length === 0) {
         alert("Keranjang belanja masih kosong!");
@@ -173,14 +171,14 @@ function prosesPembayaran() {
         hasilDiv.innerText = `Uang belum mencukupi! Kurang: Rp ${kurang.toLocaleString('id-ID')}`;
         hasilDiv.className = 'payment-result error';
     } else {
-        // Uang Pas / Lebih (Kembalian)
+        // Kembalian
         const kembalian = uangBayar - grandTotal;
         hasilDiv.innerText = `Pembayaran Berhasil! Kembalian Anda: Rp ${kembalian.toLocaleString('id-ID')}`;
         hasilDiv.className = 'payment-result success';
     }
 }
 
-// --- MODUL RESET TRANSAKSI ---
+
 function resetTransaksi() {
     if(confirm("Apakah Anda yakin ingin memulai transaksi baru? Seluruh data keranjang akan dihapus.")) {
         cart = [];
